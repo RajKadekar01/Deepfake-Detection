@@ -39,3 +39,5 @@ Deepfake-Detection/
 ├── static/
 │   └── js/app.js          # Frontend JS
 └── model/                 # Your ML model files (if applicable)
+License
+This project is licensed under the MIT License.
