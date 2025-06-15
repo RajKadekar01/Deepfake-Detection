@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DeepGuard | AI-Powered Deepfake Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1",
+              secondary: "#8b5cf6",
+              dark: "#1e293b",
+              light: "#f8fafc",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      }
+
+      .result-card {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .file-upload:hover .upload-icon {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 flex items-center">
+              <i class="fas fa-shield-alt text-primary text-2xl mr-2"></i>
+              <span class="text-xl font-bold text-dark">DeepGuard</span>
+            </div>
+          </div>
+          <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
+            <a
+              href="#"
+              class="text-dark hover:text-primary px-3 py-2 font-medium"
+              >Home</a
+            >
+            <a
+              href="#"
+              class="text-dark hover:text-primary px-3 py-2 font-medium"
+              >How It Works</a
+            >
+            <a
+              href="#"
+              class="text-dark hover:text-primary px-3 py-2 font-medium"
+              >About</a
+            >
+            <a
+              href="#"
+              class="text-dark hover:text-primary px-3 py-2 font-medium"
+              >Contact</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white">
+      <div
+        class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center"
+      >
+        <h1
+          class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
+        >
+          Detect Deepfakes with AI
+        </h1>
+        <p class="mt-6 max-w-2xl mx-auto text-xl text-indigo-100">
+          Upload images or videos to analyze and detect manipulated media using
+          advanced machine learning algorithms.
+        </p>
+        <div class="mt-10 flex justify-center">
+          <div class="inline-flex rounded-md shadow">
+            <a
+              href="#detection-section"
+              class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary bg-white hover:bg-gray-50"
+            >
+              Try Now <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detection Section -->
+    <div
+      id="detection-section"
+      class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-dark sm:text-4xl">
+          Deepfake Detection
+        </h2>
+        <p class="mt-3 max-w-2xl mx-auto text-gray-500 sm:mt-4">
+          Upload an image or video file to analyze for potential deepfake
+          manipulation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Upload Section -->
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <div
+            class="file-upload border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary transition duration-300"
+            id="dropZone"
+          >
+            <div class="upload-icon inline-block mb-4">
+              <i class="fas fa-cloud-upload-alt text-4xl text-primary"></i>
+            </div>
+            <h3 class="text-lg font-medium text-dark mb-2">
+              Drag & Drop Files Here
+            </h3>
+            <p class="text-gray-500 mb-4">or</p>
+            <label
+              for="fileInput"
+              class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+            >
+              <i class="fas fa-folder-open mr-2"></i> Browse Files
+              <input
+                id="fileInput"
+                type="file"
+                class="hidden"
+                accept="image/*, video/*"
+              />
+            </label>
+            <p class="text-xs text-gray-500 mt-4">
+              Supports: JPG, PNG, MP4, MOV (Max 50MB)
+            </p>
+          </div>
+
+          <div class="mt-6">
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Recent Files</h4>
+            <div class="space-y-2">
+              <div class="flex items-center p-2 hover:bg-gray-50 rounded">
+                <i class="fas fa-image text-secondary mr-3"></i>
+                <span class="text-sm text-gray-600 truncate flex-1"
+                  >profile_picture.jpg</span
+                >
+                <span class="text-xs text-gray-500">2 days ago</span>
+              </div>
+              <div class="flex items-center p-2 hover:bg-gray-50 rounded">
+                <i class="fas fa-video text-secondary mr-3"></i>
+                <span class="text-sm text-gray-600 truncate flex-1"
+                  >interview_video.mp4</span
+                >
+                <span class="text-xs text-gray-500">1 week ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <h3 class="text-lg font-medium text-dark mb-4">Analysis Results</h3>
+
+          <div id="resultsContainer" class="hidden">
+            <div
+              class="result-card bg-white border border-gray-200 rounded-lg p-6 mb-6"
+            >
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h4 class="font-medium text-dark">File Analysis</h4>
+                  <p class="text-sm text-gray-500" id="fileName">
+                    profile_picture.jpg
+                  </p>
+                </div>
+                <span
+                  class="px-3 py-1 rounded-full text-xs font-medium"
+                  id="resultBadge"
+                  >Real</span
+                >
+              </div>
+
+              <div class="mb-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                  <span>Detection Confidence</span>
+                  <span id="confidenceValue">92%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    class="bg-primary h-2.5 rounded-full"
+                    id="confidenceBar"
+                    style="width: 92%"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-600">File Type</p>
+                  <p class="font-medium" id="fileType">Image</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">File Size</p>
+                  <p class="font-medium" id="fileSize">2.4 MB</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">Resolution</p>
+                  <p class="font-medium" id="resolution">1920x1080</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">Analysis Time</p>
+                  <p class="font-medium" id="analysisTime">3.2s</p>
+                </div>
+              </div>
+
+              <div>
+                <h5 class="text-sm font-medium text-gray-700 mb-2">
+                  Detection Indicators
+                </h5>
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    <span class="text-sm">Consistent lighting patterns</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                    <span class="text-sm">Slight facial warping detected</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    <span class="text-sm">Natural eye blinking</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-info-circle text-blue-500"></i>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-blue-800">
+                    What does this mean?
+                  </h3>
+                  <div class="mt-2 text-sm text-blue-700">
+                    <p id="resultExplanation">
+                      Our analysis suggests this media is likely authentic with
+                      high confidence. However, we detected minor anomalies that
+                      could indicate subtle manipulation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="emptyState" class="text-center py-12">
+            <i class="fas fa-microscope text-4xl text-gray-300 mb-4"></i>
+            <h4 class="text-lg font-medium text-gray-500 mb-2">
+              No File Analyzed
+            </h4>
+            <p class="text-gray-400">
+              Upload a file to begin deepfake detection analysis.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="bg-gray-50 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-extrabold text-dark sm:text-4xl">
+            How Our Detection Works
+          </h2>
+          <p class="mt-3 max-w-2xl mx-auto text-gray-500 sm:mt-4">
+            Advanced AI techniques to identify manipulated media
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div
+              class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white mb-4"
+            >
+              <i class="fas fa-brain text-xl"></i>
+            </div>
+            <h3 class="text-lg font-medium text-dark mb-2">
+              Neural Network Analysis
+            </h3>
+            <p class="text-gray-500">
+              Our deep learning models analyze facial features, textures, and
+              artifacts that are often left behind by deepfake generation
+              algorithms.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div
+              class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white mb-4"
+            >
+              <i class="fas fa-eye text-xl"></i>
+            </div>
+            <h3 class="text-lg font-medium text-dark mb-2">
+              Facial Movement Patterns
+            </h3>
+            <p class="text-gray-500">
+              We examine subtle inconsistencies in facial movements, blinking
+              patterns, and micro-expressions that are difficult to perfectly
+              replicate.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div
+              class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white mb-4"
+            >
+              <i class="fas fa-wave-square text-xl"></i>
+            </div>
+            <h3 class="text-lg font-medium text-dark mb-2">
+              Frequency Domain Analysis
+            </h3>
+            <p class="text-gray-500">
+              Our system checks frequency domain artifacts that often reveal
+              manipulation, even when visual inspection might not detect
+              anything unusual.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-lg font-medium mb-4">DeepGuard</h3>
+            <p class="text-gray-400 text-sm">
+              Advanced AI-powered deepfake detection to help combat
+              misinformation and protect digital integrity.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-4">Product</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >Features</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >API</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >Pricing</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >FAQ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-4">Company</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >Blog</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white text-sm"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-4">Connect</h3>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm"
+        >
+          <p>&copy; 2023 DeepGuard. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="static/js/app.js"></script>
+  </body>
+</html>
